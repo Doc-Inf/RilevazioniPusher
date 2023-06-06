@@ -33,7 +33,7 @@ public class RilevazioniPusherGUI extends JFrame implements ActionListener{
 	 * 
 	 */
 	private static final long serialVersionUID = 1691637444499518758L;
-	private static final int DEFAULT_CONFIG = 0; // 0 http/localhost, 1 https/ip
+	private static final int DEFAULT_CONFIG = 1; // 0 http/localhost, 1 https/ip
 	private static final String DEFAULT_FILE_RILEVAZIONI = "./rilevazioni/rilevazioni.txt";
 	private static final double MULTIPLIER;
 	
@@ -178,6 +178,7 @@ public class RilevazioniPusherGUI extends JFrame implements ActionListener{
 		requestUrlLabel = new JLabel("Request URL: ");
 		requestUrlLabel.setPreferredSize(new Dimension(LABEL_WIDTH,LABEL_HEIGHT));
 		requestUrlComboBox = new JComboBox<>(requestUrlArray);
+		requestUrlComboBox.setSelectedIndex(DEFAULT_CONFIG);
 		requestUrlComboBox.setToolTipText("Select 'ProgettoMeteo' per il servizio in localhost, 'meteo' per il servizio su Aruba");
 		requestUrlComboBox.setPreferredSize(new Dimension(COMBOBOX_WIDTH,COMBOBOX_HEIGHT));
 		requestUrlComboBox.addActionListener(this);
