@@ -1,0 +1,57 @@
+---------------------------------------------2023-06-12T17:48:39.309422500---------------------------------------------
+Creazione Rilevazioni GUI completata.
+GUI Size - Width: 1050	Height: 1050
+Controller Rilevazioni in esecuzione...
+Creato un ssl socket
+ricerca data ultima rilevazione iniziata
+in attesa di risposta...
+richiesta inviata...
+Data letta: 2023-06-08 10:30:00
+Risposta: HTTP/1.1 200 OK
+Server: aruba-proxy
+Date: Mon, 12 Jun 2023 15:48:36 GMT
+Content-Type: text/html; charset=UTF-8
+Transfer-Encoding: chunked
+Connection: close
+Vary: Accept-Encoding
+Expires: Thu, 19 Nov 1981 08:52:00 GMT
+Cache-Control: no-store, no-cache, must-revalidate
+Pragma: no-cache
+Set-Cookie: PHPSESSID=4imtknu3p0qc1m34p927a7e524; path=/
+X-ServerName: ipvsproxy63.ad.aruba.it
+
+13
+2023-06-08 10:30:00
+0
+
+
+DATA DENTRO RESULT: 2023-06-08 10:30:00
+LAST DATE: 2023-06-08T10:30
+Data ultima modifica: 
+2023-06-08T10:30
+Parser in esecuzione...
+Parsing terminato
+[{ "data":"2023-06-12", "ora":"10:30", "tempOut":"23.2", "hiTemp":"23.7", "lowTemp":"22.3", "outHum":"59", "devPt":"14.7", "windSpeed":"3.2", "windDir":"NNE", "windRun":"1.61", "hiSpeed":"12.9", "hiDir":"N", "chillWind":"23.2", "heatIndex":"23.3", "thwIndex":"23.3", "bar":"1012.9", "rain":"0.0", "rainRate":"0.0", "heatDD":"0.0", "coolDD":"0.101", "inTemp":"24.5", "inHum":"52", "inDew":"14.0", "inHeat":"24.5", "inEMC":"9.53", "inAirDensity":"1.1674", "windSamp":"696", "windTx":"1", "issRecept":"100.0", "arcInt":"30" }]
+CLIENT: POST /meteo/ws/insert.php HTTP/1.1
+CLIENT: HOST: www.itisvallauri.net
+CLIENT: Content-Type: text/html; charset=utf-8
+CLIENT: Auth: +n5fnLCHGi+ZRueK0X+tcltzMkxsUR37TyUIXm2W75o=
+CLIENT: CONTENT-LENGTH: 523
+CLIENT: Connection: close
+
+SERVER: HTTP/1.1 200 OK
+SERVER: Server: aruba-proxy
+SERVER: Date: Mon, 12 Jun 2023 15:48:36 GMT
+SERVER: Content-Type: text/html; charset=UTF-8
+SERVER: Transfer-Encoding: chunked
+SERVER: Connection: close
+SERVER: Vary: Accept-Encoding
+SERVER: Expires: Thu, 19 Nov 1981 08:52:00 GMT
+SERVER: Cache-Control: no-store, no-cache, must-revalidate
+SERVER: Pragma: no-cache
+SERVER: Anno: 2023
+SERVER: TestoPrimaHash: wsDocente@#Meteorite23202361217
+SERVER: TestoEncoded: +n5fnLCHGi+ZRueK0X+tcltzMkxsUR37TyUIXm2W75o=
+SERVER: Response: request accepted
+SERVER: Set-Cookie: PHPSESSID=r05ruaefe7rf2s5ahcfi7uhmcu; path=/
+SERVER: X-ServerName: ipvsproxy63.ad.aruba.it

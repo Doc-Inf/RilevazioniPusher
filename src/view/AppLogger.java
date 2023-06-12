@@ -1,8 +1,10 @@
 package view;
 
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.PrintWriter;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 import javax.swing.JTextArea;
@@ -13,13 +15,15 @@ public class AppLogger {
 	private static DebugMode debugMode;
 	private static JTextArea logArea;
 	
-	static {
-		try {
-			debugMode= DebugMode.CONSOLE_FILE;  
-			out = new PrintWriter(DateTimeFormatter.ofPattern("dd_MM_yyyy").format(LocalDate.now()) + ".txt");
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
+	static {	
+			debugMode= DebugMode.CONSOLE_FILE; 
+			try {
+				out = new PrintWriter(new FileOutputStream(DateTimeFormatter.ofPattern("dd_MM_yyyy").format(LocalDate.now()) + ".txt"),true);
+				out.println("---------------------------------------------" + LocalDateTime.now() + "---------------------------------------------");
+				out.flush();
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			}
 	}
 	
 	private AppLogger(){
@@ -37,8 +41,7 @@ public class AppLogger {
 				break;
 			}
 			case FILE:{
-				out.println(message);
-				out.flush();
+				writeFile(message);			
 				break;
 			}
 			case GUI:{
@@ -47,8 +50,7 @@ public class AppLogger {
 			}
 			case CONSOLE_FILE:{
 				System.out.println(message);
-				out.println(message);
-				out.flush();
+				writeFile(message);		
 				break;
 			}
 			case CONSOLE_GUI:{
@@ -57,14 +59,14 @@ public class AppLogger {
 				break;
 			}
 			case FILE_GUI:{
-				out.println(message);
 				logArea.append(message+"\n");
+				writeFile(message);		
 				break;
 			}
 			case CONSOLE_GUI_FILE:{
 				System.out.println(message);
-				out.println(message);
 				logArea.append(message+"\n");
+				writeFile(message);		
 				break;
 			}	
 		}	
@@ -78,8 +80,7 @@ public class AppLogger {
 				break;
 			}
 			case FILE:{
-				out.println(message);
-				out.flush();
+				writeFile(message);		
 				break;
 			}
 			case GUI:{
@@ -88,8 +89,7 @@ public class AppLogger {
 			}
 			case CONSOLE_FILE:{
 				System.out.println(message);
-				out.println(message);
-				out.flush();
+				writeFile(message);		
 				break;
 			}
 			case CONSOLE_GUI:{
@@ -98,19 +98,23 @@ public class AppLogger {
 				break;
 			}
 			case FILE_GUI:{
-				out.println(message);
 				logArea.append(message+"\n");
+				writeFile(message);		
 				break;
 			}
 			case CONSOLE_GUI_FILE:{
 				System.out.println(message);
-				out.println(message);
-				out.flush();
 				logArea.append(message+"\n");
+				writeFile(message);		
 				break;
 			}	
 		}	
 		
+	}
+	
+	private static void writeFile(Object message) {
+		out.println(message);
+		out.flush();					
 	}
 	
 	public static void setLogArea(JTextArea logArea) {

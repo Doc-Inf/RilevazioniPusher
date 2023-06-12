@@ -306,8 +306,7 @@ public class RilevazioniPusherGUI extends JFrame implements ActionListener{
 		if(e.getSource()==pushButton) {
 			if(pushButton.isEnabled()) {
 				if(protocol.equalsIgnoreCase("HTTPS")) {
-					new Thread(new RilevazioniController(hostname,port,true,requestUrl,file,filterByData)).start();
-					pushButton.setEnabled(false);
+					new Thread(new RilevazioniController(hostname,port,true,requestUrl,file,filterByData)).start();					
 				}else {
 					if(protocol.equalsIgnoreCase("HTTP")) {
 						new Thread(new RilevazioniController(hostname,port,false,requestUrl,file,filterByData)).start();

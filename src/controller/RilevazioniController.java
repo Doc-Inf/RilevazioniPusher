@@ -7,8 +7,14 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Base64;
 import java.util.List;
 
 import javax.net.ssl.SSLSocketFactory;
@@ -138,12 +144,28 @@ public class RilevazioniController implements Runnable{
 			out.println("POST /" + projectDir + "/ws/insert.php HTTP/1.1");
 			out.println("HOST: " + hostname);
 			out.println("Content-Type: text/html; charset=utf-8");
+			//out.println("Auth: d3NEb2NlbnRlOkAjTWV0ZW9yaXRlMjM=");
+			out.println("Auth: " + getAutenticationString());
 			out.println("CONTENT-LENGTH: " + dati.length);
 			out.println("Connection: close");
 			out.println();
 			out.println(sb.toString());
 			out.println("\n");
 			out.flush();
+			
+			
+			StringBuilder lb = new StringBuilder();
+			lb.append("CLIENT: POST /" + projectDir + "/ws/insert.php HTTP/1.1\n");
+			lb.append("CLIENT: HOST: " + hostname + "\n");
+			lb.append("CLIENT: Content-Type: text/html; charset=utf-8\n");
+			lb.append("CLIENT: Auth: " + getAutenticationString() + "\n");
+			//lb.append("CLIENT: Auth: d3NEb2NlbnRlOkAjTWV0ZW9yaXRlMjM=\n");
+			//lb.append("CLIENT: Authorization: Basic d3NEb2NlbnRlOkAjTWV0ZW9yaXRlMjM=\n");
+			lb.append("CLIENT: CONTENT-LENGTH: " + dati.length + "\n");
+			lb.append("CLIENT: Connection: close\n");
+						
+			log(lb.toString());
+			
 		} catch (UnknownHostException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -260,5 +282,20 @@ public class RilevazioniController implements Runnable{
 		}	
 		
 		return lastDate;
+	}
+	
+	private String getAutenticationString() {
+		String result = null;
+		try {
+			String pw = Files.readAllLines(Paths.get("./config/config.txt")).get(0);
+			LocalDateTime d = LocalDateTime.now();
+			pw += "" + d.getYear() + d.getMonthValue() + d.getDayOfMonth() + d.getHour();
+			MessageDigest digest = MessageDigest.getInstance("SHA-256");
+			byte[] hash = digest.digest(pw.getBytes(StandardCharsets.UTF_8));
+			result = Base64.getEncoder().encodeToString(hash);
+		} catch (IOException | NoSuchAlgorithmException e) {
+			e.printStackTrace();
+		}
+		return result;
 	}
 }
