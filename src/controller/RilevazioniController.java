@@ -52,6 +52,7 @@ public class RilevazioniController implements Runnable{
 		List<Rilevazione> rilevazioni;
 		if(filterByData) {
 			LocalDateTime lastDate = getLastDate();
+			
 			rilevazioni = parser.parseFile(lastDate);
 		}else {
 			rilevazioni = parser.parseFile();
@@ -171,6 +172,7 @@ public class RilevazioniController implements Runnable{
 				StringBuilder sb = new StringBuilder();
 				Object condition = new Object();
 				StringBuilder result = new StringBuilder();
+				Semaforo dataOttenuta = new Semaforo();
 				log("ricerca data ultima rilevazione iniziata");
 				new Thread(()->{
 					try {
@@ -205,10 +207,11 @@ public class RilevazioniController implements Runnable{
 										}
 																				
 									}else {		
-										log("Data letta: " + result.toString());
+										log("Data letta: " + result.toString());										
 										sb.append("\n");
 										++status;
-										done=true;																	
+										done=true;
+										dataOttenuta.setDone(true);
 									}
 									break;
 								}								
@@ -230,7 +233,7 @@ public class RilevazioniController implements Runnable{
 				out.println();
 				out.flush();
 				log("richiesta inviata...");
-				if(result.toString()==null || result.toString().trim()=="") {
+				while(!dataOttenuta.isDone()) {
 					synchronized(condition) {
 						try {
 							condition.wait();
@@ -241,7 +244,9 @@ public class RilevazioniController implements Runnable{
 				}
 				log("Risposta: " + sb.toString());
 				try {
+					log("DATA DENTRO RESULT: " + result);
 					lastDate = LocalDateTime.parse(result.toString(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+					log("LAST DATE: " + lastDate);
 					log("Data ultima modifica: \n" + lastDate.toString());	
 				}catch(Exception e) {
 					return null;

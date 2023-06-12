@@ -121,6 +121,7 @@ public class RilevazioniParserTXT implements RilevazioniParser{
 		int ore = Integer.parseInt(time[0]);
 		int minuti = Integer.parseInt(time[1]);
 		LocalTime ora = LocalTime.of(ore, minuti);
+		
 		if(LocalDateTime.of(data.getYear(), data.getMonthValue(), data.getDayOfMonth(), ora.getHour(), ora.getMinute()).isAfter(startDate)) {
 			double tempOut = Double.parseDouble(dati[2]);
 			double hiTemp = Double.parseDouble(dati[3]);

@@ -166,7 +166,7 @@ public class RilevazioniPusherGUI extends JFrame implements ActionListener{
 		protocolComboBox.setPreferredSize(new Dimension(COMBOBOX_WIDTH,COMBOBOX_HEIGHT));
 		protocolComboBox.addActionListener(this);
 		filterByDataCheckBox = new JCheckBox("Filter By Data");
-		filterByDataCheckBox.setSelected(false);
+		filterByDataCheckBox.setSelected(true);
 		filterByDataCheckBox.addActionListener(this);
 		pushButton = new JButton("Push data");
 		pushButton.addActionListener(this);
